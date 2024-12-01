@@ -1,0 +1,5 @@
+apiVersion: v2
+name: orgmap
+description: OrgMap application with PostgreSQL, Redis, Backend, and Frontend
+version: 1.0.0
+appVersion: "1.0.0"

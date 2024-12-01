@@ -1,0 +1,224 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  version: 1.0.0
+  description: API documentation for the example application.
+servers:
+  - url: http://localhost:3000
+paths:
+  /auth/signup:
+    post:
+      summary: Sign up a new user
+      responses:
+        '201':
+          description: User created successfully
+        '400':
+          description: Bad request
+  /auth/login:
+    post:
+      summary: Log in a user
+      responses:
+        '200':
+          description: User logged in successfully
+        '401':
+          description: Unauthorized
+  /auth/refresh:
+    post:
+      summary: Refresh user token
+      responses:
+        '200':
+          description: Token refreshed successfully
+        '401':
+          description: Unauthorized
+  /auth/check:
+    post:
+      summary: Check user authentication
+      responses:
+        '200':
+          description: User is authenticated
+        '401':
+          description: Unauthorized
+  /api/connection:
+    post:
+      summary: Establish a connection
+      responses:
+        '200':
+          description: Connection established
+        '400':
+          description: Bad request
+  /api/profile:
+    get:
+      summary: Get user profile
+      responses:
+        '200':
+          description: User profile retrieved successfully
+        '404':
+          description: User not found
+  /api/profile/{id}:
+    get:
+      summary: Get user profile by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User profile retrieved successfully
+        '404':
+          description: User not found
+    put:
+      summary: Update user profile by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User profile updated successfully
+        '404':
+          description: User not found
+    delete:
+      summary: Delete user profile by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User profile deleted successfully
+        '404':
+          description: User not found
+  /api/team:
+    post:
+      summary: Create a new team
+      responses:
+        '201':
+          description: Team created successfully
+        '400':
+          description: Bad request
+  /api/team/{id}:
+    get:
+      summary: Get team by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the team
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Team retrieved successfully
+        '404':
+          description: Team not found
+    put:
+      summary: Update team by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the team
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Team updated successfully
+        '404':
+          description: Team not found
+    delete:
+      summary: Delete team by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the team
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Team deleted successfully
+        '404':
+          description: Team not found
+  /api/department:
+    post:
+      summary: Create a new department
+      responses:
+        '201':
+          description: Department created successfully
+        '400':
+          description: Bad request
+  /api/department/{id}:
+    get:
+      summary: Get department by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the department
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Department retrieved successfully
+        '404':
+          description: Department not found
+    put:
+      summary: Update department by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the department
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Department updated successfully
+        '404':
+          description: Department not found
+    delete:
+      summary: Delete department by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the department
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Department deleted successfully
+        '404':
+          description: Department not found
+  /api/graph:
+    get:
+      summary: Retrieve graph data
+      responses:
+        '200':
+          description: Graph data retrieved successfully
+        '404':
+          description: Data not found
+    post:
+      summary: Submit graph data
+      responses:
+        '201':
+          description: Graph data submitted successfully
+        '400':
+          description: Bad request
+  /api/mrp:
+    get:
+      summary: Retrieve MRP data
+      responses:
+        '200':
+          description: MRP data retrieved successfully
+        '404':
+          description: Data not found

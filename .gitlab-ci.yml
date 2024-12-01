@@ -1,0 +1,79 @@
+image: docker:latest
+
+include:
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+
+stages:
+  - security
+  - build
+  - test
+  - deploy
+
+variables:
+  DOCKER_TLS_CERTDIR: ""
+  KUBERNETES_MEMORY_REQUEST: 512Mi
+  KUBERNETES_MEMORY_LIMIT: 1Gi
+  HELM_VERSION: v3.16.3
+
+services:
+  - name: docker:dind
+    command: ["--tls=false"]
+
+secret_detection:
+  stage: security
+  variables:
+    SECRET_DETECTION_HISTORIC_SCAN: "true"
+    GIT_STRATEGY: "clone"
+  allow_failure: false
+  script:
+    - apk add jq
+    - /analyzer run
+    - exit $(eval "cat gl-secret-detection-report.json | jq --raw-output '.vulnerabilities | length'")
+
+sast:
+  stage: security
+  image: registry.gitlab.com/security-products/sast:latest
+  script:
+    - /analyzer run
+  variables:
+    SCAN_KUBERNETES_MANIFESTS: "true"
+    KUBESEC_HELM_CHARTS_PATH: "./helm/orgmap"
+    SAST_EXCLUDED_ANALYZERS: "bandit,gosec,eslint"
+  allow_failure: true
+
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+helm-lint:
+  stage: test
+  image: alpine/helm:$HELM_VERSION
+  script:
+    - helm lint ./helm/orgmap
+
+deploy-minikube:
+  stage: deploy
+  image: alpine/helm:$HELM_VERSION
+  before_script:
+    - apk add --no-cache curl
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - mv ./kubectl /usr/local/bin/kubectl
+  script:
+    - kubectl config set-cluster minikube --server=$KUBE_URL --certificate-authority=$KUBE_CA_PEM
+    - kubectl config set-credentials gitlab --token=$KUBE_TOKEN
+    - kubectl config set-context default --cluster=minikube --user=gitlab
+    - kubectl config use-context default
+    - helm upgrade --install orgmap ./helm/orgmap 
+      --set image.repository=$CI_REGISTRY_IMAGE 
+      --set image.tag=$CI_COMMIT_SHA 
+      --namespace=$KUBE_NAMESPACE
+  environment:
+    name: minikube
+    url: $MINIKUBE_URL
+  only:
+    - main

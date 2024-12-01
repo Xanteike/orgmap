@@ -1,0 +1,47 @@
+global:
+  environment: production
+
+postgres:
+  image: postgres:17.2-alpine3.20
+  persistence:
+    size: 1Gi
+  credentials:
+    user: sakura
+    password: qwerty12345
+    database: orgmap
+  service:
+    port: 5432
+
+redis:
+  image: redis:8.0-M02-alpine
+  persistence:
+    size: 1Gi
+  service:
+    port: 6379
+  args:
+    - "--save"
+    - "20"
+    - "1"
+    - "--loglevel"
+    - "warning"
+
+backend:
+  image: your-backend-image:latest
+  replicas: 1
+  service:
+    port: 3000
+  resources:
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+frontend:
+  image: your-frontend-image:latest
+  replicas: 1
+  service:
+    port: 81
+    targetPort: 80
+  resources:
+    limits:
+      memory: "256Mi"
+      cpu: "200m"

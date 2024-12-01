@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@700" />
+        <meta charset="UTF-8" />
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!--[if !mso]><!-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!--<![endif]-->
+        <meta name="x-apple-disable-message-reformatting" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="popup.css" />
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/argon2-browser/1.18.0/argon2-bundled.min.js"></script>
+    </head>
+    <body id="app">
+        <div style="display: inline-block; width: 1920px;" data-ignore="used only for top most containter width">
+            <div class="main-content-container">
+                <div class="organizational-structure-visualizer">
+                    <div class="organizational-structure-visualizer1">
+                        <div class="hero-section">
+                            <div class="header-nav-container">
+                                <img src="assets/image_7b6eb85.png" class="logo-image" />
+                                <div class="header-nav-container1">
+                                    <a class="about-section-title" href="https://mvp.einsof.tech/frontend/about/about.html">О нас</a>
+                                    <button id="openPopup" class="login-button-text-style">{{checkLogin}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="organizational-structure-service-btn-group">
+                            <div class="organizational-structure-service-viewer">
+                                <div class="organizational-structure-service-btn-group1">
+                                    <div class="organizational-structure-visualizer-service">
+                                        <p class="organizational-structure-visualizer-text-style">
+                                            <span class="organizational-heading-style">Сервис </span><span class="organizational-structure-visualization-style">визуализации<br /></span>
+                                            <span class="organizational-structure-heading-style">организационной структуры</span>
+                                        </p>
+                                        <div class="auth-button-container">
+                                        </div>
+                                    </div>
+                                    <img src="assets/image_3d11dd6a.png" class="organizational-structure-image" />
+                                </div>
+                                <div class="organizational-structure-image-container">
+                                    <img src="assets/image_7d3301ce.png" class="image-container-styles" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="primary-content-container">
+                    <div class="service-features-container">
+                        <p class="main-heading-style">Принцип работы сервиса</p>
+                        <div class="feature-section-grid-layout">
+                            <div class="feature-card-container">
+                                <div class="feature-section">
+                                    <img src="assets/image_c6192ade.png" class="app-feature-image" />
+                                    <div class="key-features-section">
+                                        <p class="key-features-title">Ключевые функции приложения</p>
+                                        <p class="key-features-section-text-style">Наше web-приложение обеспечивает эффективность и удобство использования за счет нескольких ключевых функций</p>
+                                    </div>
+                                </div>
+                                <div class="team-management-card">
+                                    <img src="assets/image_bde323a3.png" class="team-management-card1" />
+                                    <div class="key-features-section">
+                                        <p class="team-management-heading">
+                                            Управление<br />
+                                            командами
+                                        </p>
+                                        <p class="team-table-description-text-style">Владельцы организации могут создавать и редактировать таблицы команд, регулируя их состав</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-profile-section">
+                                <div class="feature-section">
+                                    <img src="assets/image_11e8e34c.png" class="app-feature-image" />
+                                    <div class="key-features-section">
+                                        <p class="key-features-title">Персональные профили сотрудников</p>
+                                        <p class="employee-profile-card-text-style">Каждый сотрудник имеет свой профиль с информацией о департаменте, должности и команде, а также уведомления</p>
+                                    </div>
+                                </div>
+                                <div class="team-management-card">
+                                    <img src="assets/image_b2406750.png" class="employee-card-image" />
+                                    <div class="key-features-section">
+                                        <p class="team-management-heading">
+                                            Кадровые<br />
+                                            изменения
+                                        </p>
+                                        <p class="team-leadership-message">Руководители команд могут инициировать запросы на увольнение или добавление сотрудников</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vertical-section-container">
+                                <div class="feature-section">
+                                    <img src="assets/image_39d45b7a.png" class="secure-access-card" />
+                                    <div class="secure-access-container">
+                                        <p class="team-management-heading">
+                                            Безопасный<br />
+                                            доступ
+                                        </p>
+                                        <p class="secure-access-description">Для доступа к приложению и его функциям требуется авторизация, что обеспечивает безопасность данных</p>
+                                    </div>
+                                </div>
+                                <div class="team-management-card">
+                                    <img src="assets/image_4ff475bf.png" class="image-container" />
+                                    <div class="secure-access-container">
+                                        <p class="team-management-heading">
+                                            Удобная<br />
+                                            навигация
+                                        </p>
+                                        <p class="central-text-block">На главном экране пользователи могут переходить к различным разделам и функциям</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Попап окно -->
+    <div id="authPopup" class="popup">
+        <div class="popup-content">
+            <span id="closePopup" class="close">&times;</span>
+            <h2>Авторизация</h2>
+            <form id="authForm">
+                <div class="form-group">
+                    <label for="username">Логин</label>
+                    <input type="text" id="username" name="username" placeholder="Введите логин" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+                </div>
+                <button id="sendBtn" type="button">Войти</button>
+            </form>
+        </div>
+    </div>
+        <script src="index.js"></script>
+        <script src="popup.js"></script>
+        <script>
+            setInterval(() => { fetch('/api/mrp').then(data => console.log(data)) }, 60000);
+        </script>
+    </body>
+</html>

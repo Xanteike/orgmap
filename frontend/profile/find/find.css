@@ -1,0 +1,194 @@
+.main-content-container {
+    box-sizing: border-box;
+    min-width: 1920px;
+    background: white;
+}
+.employee-directory-container {
+    box-sizing: border-box;
+    width: 100%;
+    background: #dddddd;
+}
+.header-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100px;
+    padding-right: 35px;
+    padding-left: 35px;
+    background: white;
+    box-shadow: 0px 5px 21px 7px rgba(0, 0, 0, 0.2);
+}
+.employee-search-container {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 40.16%;
+}
+.image-container-styles {
+    box-sizing: border-box;
+    display: block;
+    width: 161px;
+    max-width: initial;
+    height: 57px;
+    border: none;
+    object-fit: cover;
+}
+.header-nav-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    width: 59.84%;
+    height: 100px;
+    padding-right: 24.5px;
+    padding-left: 15px;
+}
+.employee-search-container1 {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 335px;
+    height: 62px;
+    padding-right: 27px;
+    padding-left: 29px;
+    background: #ff0032;
+    border-radius: 124px;
+}
+.find-employee-title-text-style {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 400 16px Arial;
+    color: white;
+}
+.employee-search-icon {
+    box-sizing: border-box;
+    display: block;
+    width: 18px;
+    max-width: initial;
+    height: 18px;
+    border: none;
+    object-fit: cover;
+}
+.header-navigation {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.about-section-title {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 500 24px Inter, sans-serif;
+    color: #1e1e1e;
+}
+.about-us-button {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    margin-left: 35px;
+    font: 500 24px Inter, sans-serif;
+    color: #1e1e1e;
+}
+.employee-list-container1 {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 37px 29px 46px;
+}
+.employee-card1 {
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 31px;
+}
+.employee-list-container {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 45px 48px 596px 60px;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0px 4px 28.5px rgba(0, 0, 0, 0.25);
+}
+.employee-list-title {
+    padding: 0;
+    margin: 0;
+    font: 700 32px Arial;
+    color: #1e1e1e;
+}
+.employee-card-style {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 24px 37px 35px 38px;
+    margin-top: 34px;
+    background: #dddddd;
+    border-radius: 30px;
+}
+.flex-column-center-aligned {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    width: 133px;
+    padding: 24px 31px 24.5px;
+    background: url("assets/image_d1b265d9.png") 50% / cover no-repeat;
+}
+.image-container {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    max-width: initial;
+    height: 85px;
+    border: none;
+    object-fit: cover;
+}
+.employee-card {
+    flex: 0 0 auto;
+    padding-top: 14.5px;
+    margin-left: 19px;
+}
+.employee-name-text-style {
+    padding: 0;
+    margin: 0;
+    font: 400 24px Arial;
+    color: #1e1e1e;
+}
+.employee-details-container {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10.5px;
+}
+.job-title-text-style {
+    padding: 0;
+    margin: 0;
+    font: 400 20px Arial;
+    color: #1e1e1e;
+}
+.employee-contact-info-text-style {
+    padding: 0;
+    margin: 0;
+    margin-top: 17px;
+    font: 700 20px Arial;
+    color: #1e1e1e;
+}
+.email-text-blue {
+    padding: 0;
+    margin: 0;
+    margin-top: 11.5px;
+    font: 400 20px Arial;
+    color: #4d55ff;
+}

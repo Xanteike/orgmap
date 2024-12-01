@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600" />
+        <meta charset="UTF-8" />
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!--[if !mso]><!-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!--<![endif]-->
+        <meta name="x-apple-disable-message-reformatting" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="profile.css" />
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </head>
+    <body id="app">
+        <div style="display: inline-block; width: 1920px;" data-ignore="used only for top most containter width">
+            <div class="main-content-container">
+                <div class="employee-directory-container">
+                    <div class="header-section">
+                        <img src="assets/image_7b6eb85.png" class="employee-search-image" />
+                        <div class="employee-search-container">
+                            <p class="search-employee-form-heading">Найти сотрудника</p>
+                            <img src="assets/image_399a3510.png" class="employee-search-icon" />
+                        </div>
+                        <div class="header-nav">
+                            <a class="about-section-title" href="http://127.0.0.1:5500/frontend/about/about.html">О нас</a>
+                            <p class="about-us-button">{{checkLogin}}</p>
+                        </div>
+                    </div>
+                    <div class="employee-profile-card">
+                        <div class="employee-card1">
+                            <div class="employee-card2">
+                                <div class="vertical-centered-container">
+                                    <img src="assets/image_5ad1313.png" class="image-container1" />
+                                </div>
+                            </div>
+                            <div class="employee-card">
+                                <div class="employee-info-card1">
+                                    <div class="employee-info-card1">
+                                        <p class="employee-name-style">ФИО: {{user.username}}</p>
+                                        <div class="employee-info-card2">
+                                            <p class="job-title-style">Должность: {{user.role}}</p>
+                                            <p class="department-title">Статус: {{user.status}}</p>
+                                            <p class="department-title">Департамент:</p>
+                                            <p class="birthday-text-styler">День рождения: {{}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="employee-card3">
+                                    <div>
+                                        <div class="employee-card-layout">
+                                            <div class="profile-card">
+                                                <img src="assets/image_5ad1313.png" class="image-container" />
+                                            </div>
+                                            <div class="employee-info-card">
+                                                <p class="heading-primary">ФИО: {{username}}</p>
+                                                <p class="employee-name-style1">Должность: {{role}}</p>
+                                                <p class="birthday-text-styler">Статус: {{status}}</p>
+                                                <p class="title-text-bold-black">Рабочий номер: {{phone}}</p>
+                                            </div>
+                                        </div>
+                                        <p class="employee-details-text-style">{{email}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-info-section5">
+                            <div class="contact-info-container1">
+                                <div class="contact-info-section3">
+                                    <p class="contact-info-title">Контактные данные</p>
+                                    <div class="contact-info-section4">
+                                        <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                                        <div class="contact-info-section contact-info-section2 contact-info-section:first-child">
+                                            <div class="contact-info-section1">
+                                                <p class="contact-info-label-style">Час. пояс:</p>
+                                            </div>
+                                            <p class="time-label-text-style">+4 MSK</p>
+                                        </div>
+                                        <div class="contact-info-section contact-info-section2">
+                                            <div class="contact-info-section1">
+                                                <p class="contact-info-label-style">E-mail:</p>
+                                            </div>
+                                            <p class="time-label-text-style">{{user.email}}</p>
+                                        </div>
+                                        <div class="contact-info-section contact-info-section2">
+                                            <div class="contact-info-section1">
+                                                <p class="contact-info-label-style">Telegram:</p>
+                                            </div>
+                                            <p class="time-label-text-style">{{user.tg}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-info-container">
+                                <p class="contact-info-heading">Контактные данные</p>
+                                <div class="user-info-form">
+                                    <div class="employee-info-card1">
+                                        <p class="telegram-info-text">Ваш Telegram</p>
+                                        <div class="telegram-input-container">
+                                            <p class="telegram-prompt">Введите Telegram</p>
+                                            <img src="assets/image_c4dbabcb.png" class="telegram-icon" />
+                                        </div>
+                                    </div>
+                                    <div class="phone-number-input-container">
+                                        <p class="telegram-info-text">Ваш номер телефона</p>
+                                        <div class="telegram-input-container">
+                                            <p class="telegram-prompt">Введите номер</p>
+                                            <img src="assets/image_1c01e54.png" class="number-input-image" />
+                                        </div>
+                                    </div>
+                                    <div class="phone-number-input-container">
+                                        <p class="telegram-info-text">Ваш дата рождения</p>
+                                        <div class="telegram-input-container">
+                                            <p class="telegram-prompt">Введите дату рождения</p>
+                                            <img src="assets/image_7ee8d521.png" class="number-input-image" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="profile.js"></script>
+    </body>
+</html>

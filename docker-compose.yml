@@ -1,0 +1,92 @@
+services:
+  postgres:
+    image: postgres:17.2-alpine3.20
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./ssl:/etc/ssl/certs
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+    environment:
+      POSTGRES_USER: sakura
+      POSTGRES_PASSWORD: qwerty12345
+      POSTGRES_DB: orgmap
+    restart: always
+
+  redis:
+    image: redis:8.0-M02-alpine
+    container_name: redis
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    restart: always
+    command: ["redis-server", "--save", "20 1", "--loglevel", "warning"]
+
+  backend:
+    image: node:23.3.0-alpine3.19
+    container_name: backend
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+    volumes:
+      - ./backend:/home/node/app
+    command: >
+      sh -c "npm i && node index.js"
+
+  swagger:
+    image: node:23.3.0-alpine3.19
+    container_name: swagger
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    depends_on:
+      - postgres
+      - redis
+      - backend
+    restart: always
+    volumes:
+      - ./swagger:/home/node/app
+    command: >
+      sh -c "npm start"
+
+  frontend:
+    image: nginx:1.27.3-alpine3.20 
+    container_name: frontend
+    ports:
+      - "81:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html  
+      - ./frontend/mvp.conf:/etc/nginx/conf.d/mvp.conf
+    networks:
+      - backend
+    depends_on:
+      - backend
+    restart: always
+
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge

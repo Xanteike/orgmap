@@ -1,0 +1,366 @@
+.main-container {
+    box-sizing: border-box;
+    min-width: 1920px;
+    background: url("assets/image_345f98be.png") 50% / cover no-repeat;
+    border: none;
+}
+.header-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 597px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100px;
+    padding-right: 35px;
+    padding-left: 35px;
+    background: white;
+    box-shadow: 0px 5px 21px 7px rgba(0, 0, 0, 0.2);
+}
+.employee-search-banner {
+    box-sizing: border-box;
+    display: block;
+    width: 161px;
+    max-width: initial;
+    height: 57px;
+    border: none;
+    object-fit: cover;
+}
+.employee-search-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+    padding-right: 27px;
+    padding-left: 29px;
+    background: #ff0032;
+    border-radius: 124px;
+}
+.search-employee-title-text-style {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 400 16px Arial;
+    color: white;
+}
+.employee-search-icon {
+    box-sizing: border-box;
+    display: block;
+    width: 18px;
+    max-width: initial;
+    height: 18px;
+    border: none;
+    object-fit: cover;
+}
+.header-nav {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.about-section-title {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 500 24px Inter, sans-serif;
+    color: #1e1e1e;
+}
+.about-us-button {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    margin-left: 35px;
+    font: 500 24px Inter, sans-serif;
+    color: #1e1e1e;
+}
+.central-content-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    padding: 59px 148px 104px;
+}
+.team-member-card {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+.employee-card6 {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 40%;
+    padding-bottom: 16.5px;
+}
+.red-box-with-image {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 35px;
+    background: #ff0032;
+    border-radius: 10px;
+}
+.vertical-centered-box {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    width: 22px;
+    height: 35px;
+}
+.image-container-styles {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    max-width: initial;
+    height: 22px;
+    border: none;
+    object-fit: cover;
+}
+.card-thumbnail-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 35px;
+    margin-top: 5px;
+    background: #ff0032;
+    border-radius: 10px;
+}
+.image-container-styles1 {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    max-width: initial;
+    height: 3px;
+    border: none;
+    border-radius: 3px;
+    object-fit: cover;
+}
+.red-box-with-icon {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    margin-top: 5px;
+    background: #ff0032;
+    border-radius: 10px;
+}
+.vertical-centered-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: initial;
+    height: 22px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background: url("assets/image_3b379009.png") 50% / cover no-repeat;
+    border: none;
+}
+.svg-container {
+    display: flex;
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+}
+.employee-card4 {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    width: 60%;
+    padding-top: 33px;
+    padding-left: 30px;
+}
+.employee-card2 {
+    flex: 1 1 0;
+}
+.profile-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 277px;
+    height: 99px;
+    padding: 11.5px 19.5px 16px;
+    background: white;
+    border-radius: 30px;
+}
+.profile-card1 {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    width: 68px;
+    padding-right: 16px;
+    padding-left: 16px;
+    background: url("assets/image_bc9844e.png") 50% / cover no-repeat;
+}
+.image-container-style {
+    box-sizing: border-box;
+    display: block;
+    flex: 0 0 auto;
+    max-width: initial;
+    height: 44px;
+    border: none;
+    object-fit: cover;
+}
+.employee-card {
+    flex: 0 1 auto;
+    margin-left: 9px;
+}
+.main-content-text-style {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font: 400 14px Arial;
+    color: #1e1e1e;
+    text-align: left;
+}
+.contact-info-box {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10.5px;
+}
+.job-title-text-style {
+    padding: 0;
+    margin: 0;
+    font: 400 12px Arial;
+    color: #1e1e1e;
+}
+.email-text-display-style {
+    padding: 0;
+    margin: 0;
+    margin-top: 7.75px;
+    font: 400 14px Arial;
+    color: #4d55ff;
+}
+.employee-card1 {
+    flex: 1 1 0;
+    margin-left: 133px;
+}
+.employee-card-container {
+    flex: 0 0 auto;
+    padding-right: 151px;
+    padding-left: 151px;
+    margin-top: 53px;
+}
+.vibrant-profile-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding-top: 21px;
+    padding-bottom: 25px;
+    background: #ff0032;
+    border-radius: 30px;
+}
+.personnel-card-container {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    min-width: 852px;
+    padding-right: 281px;
+    padding-left: 281px;
+}
+.team-member-card1 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 298px;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+.employee-card5 {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 74px;
+}
+.employee-card-container2 {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-width: 1117px;
+    margin-top: 13.5px;
+    margin-left: -74px;
+}
+.dark-card-container1 {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    min-width: 707px;
+    padding: 31px 27px 26.5px;
+    background: #1e1e1e;
+    border-radius: 30px;
+}
+.employee-card-container1 {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 82px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-right: 17px;
+}
+.employee-card-group {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 96px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-right: 3px;
+    margin-top: 45px;
+}
+.dark-card-container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    min-width: 357px;
+    padding-right: 36px;
+    padding-left: 36px;
+    background: #1e1e1e;
+    border-radius: 30px;
+}
+.employee-card3 {
+    flex: 0 0 auto;
+    padding-right: 8px;
+}

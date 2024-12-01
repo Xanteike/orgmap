@@ -1,0 +1,889 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  description: API documentation for authentication-related endpoints.
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - Authentication
+      summary: Sign up a new user
+      description: Creates a new user account with a username and password. The username
+        must be unique and the password will be securely hashed before storage.
+      operationId: authSignupPOST
+      parameters:
+      - name: username
+        in: header
+        description: The username for the new account. Must be a string and unique.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: new_user
+      - name: password
+        in: header
+        description: "The password for the new account. Must be a string and meet\
+          \ security requirements (e.g., minimum length)."
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: securePassword123!
+      responses:
+        "202":
+          description: User created successfully. The account has been created and
+            is ready for use.
+        "400":
+          description: "Bad request. This can occur for several reasons: The username\
+            \ or password is missing or invalid (not a string). The username is already\
+            \ in use by another account."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - api_key: []
+      x-swagger-router-controller: Authentication
+  /auth/login:
+    post:
+      tags:
+      - Authentication
+      summary: Log in a user
+      description: "Authenticates a user by verifying their username and password.\
+        \ If successful, a JSON Web Token (JWT) is returned for subsequent authenticated\
+        \ requests. The token is valid for 1 day."
+      operationId: authLoginPOST
+      parameters:
+      - name: username
+        in: header
+        description: The username for login. Must be a string and correspond to an
+          existing account.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: existing_user
+      - name: password
+        in: header
+        description: The password for login. Must be a string and match the password
+          associated with the username.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: userPassword123!
+      responses:
+        "200":
+          description: Login successful. Returns a JWT token for authenticated requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: "Bad request. This can occur if the username or password is\
+            \ missing or invalid (not a string), or if the password is incorrect."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+        "404":
+          description: Not Found. This occurs if the username does not exist in the
+            system.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      security:
+      - api_key: []
+      x-swagger-router-controller: Authentication
+  /auth/check:
+    post:
+      tags:
+      - Authentication
+      summary: Check user authentication
+      description: "Validates the provided JWT token. If the token is valid, the user\
+        \ is considered authenticated."
+      operationId: authCheckPOST
+      parameters:
+      - name: auth
+        in: header
+        description: The JWT token to validate. Must be a valid token.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: User is authenticated. The token is valid.
+        "401":
+          description: Unauthorized. This occurs if the token is invalid or has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+      security:
+      - api_key: []
+      x-swagger-router-controller: Authentication
+  /auth/refresh:
+    post:
+      tags:
+      - Authentication
+      summary: Refresh user token
+      description: "Refreshes the JWT token using the provided token. If the token\
+        \ is valid, a new JWT token is issued."
+      operationId: authRefreshPOST
+      parameters:
+      - name: auth
+        in: header
+        description: The JWT token to refresh. Must be a valid token that has not
+          expired.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: Token refreshed successfully. Returns a new JWT token.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                x-content-type: application/json
+        "400":
+          description: Bad request. This can occur if the token is missing or invalid
+            (not a string).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_2'
+        "401":
+          description: Unauthorized. This occurs if the token is invalid or has expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+      x-swagger-router-controller: Authentication
+  /api/id:
+    get:
+      tags:
+      - User
+      summary: Retrieve authenticated user's ID
+      description: Returns the username of the authenticated user from the request
+        headers. This endpoint is used to verify the identity of the user making the
+        request.
+      operationId: apiIdGET
+      parameters:
+      - name: auth
+        in: header
+        description: The JWT token for authentication.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: Successfully retrieved the username of the authenticated user.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: existing_user
+                x-content-type: application/json
+        "401":
+          description: Unauthorized. This occurs if the request does not contain a
+            valid authentication token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401_1'
+      x-swagger-router-controller: User
+  /api/connect:
+    post:
+      tags:
+      - Connections
+      summary: "Connect users, teams, or departments"
+      description: "Connects users, teams, or departments based on the provided roles.\
+        \ This endpoint allows for the management of relationships between different\
+        \ entities within the system."
+      operationId: apiConnectPOST
+      parameters:
+      - name: auth
+        in: header
+        description: The JWT token for authentication. Must be a valid token.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api_connect_body'
+        required: true
+      responses:
+        "200":
+          description: "Successfully connected the specified users, teams, or departments."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: Bad request. This can occur if the request body is malformed
+            or if the number of connections exceeds allowed limits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_3'
+        "403":
+          description: Forbidden. This occurs if the user does not have sufficient
+            privileges to perform the requested action.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403'
+      security:
+      - api_key: []
+      x-swagger-router-controller: Connections
+  /api/disconnect:
+    post:
+      tags:
+      - Connections
+      summary: "Disconnect users, teams, or departments"
+      description: "Disconnects users, teams, or departments based on the provided\
+        \ roles. This endpoint allows for the management of relationships between\
+        \ different entities within the system by removing existing connections. The\
+        \ request must specify exactly two entities to disconnect."
+      operationId: apiDisconnectPOST
+      parameters:
+      - name: auth
+        in: header
+        description: The JWT token for authentication. Must be a valid token.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api_disconnect_body'
+        required: true
+      responses:
+        "200":
+          description: "Successfully disconnected the specified users, teams, or departments."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: Bad request. This can occur if the request body is malformed
+            or if the number of connections specified is not exactly 2.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_4'
+        "403":
+          description: Forbidden. This occurs if the user does not have sufficient
+            privileges to perform the requested action.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_1'
+      security:
+      - api_key: []
+      x-swagger-router-controller: Connections
+  /api/profile/{id}:
+    get:
+      tags:
+      - Profile
+      summary: Get a user profile by ID
+      description: Retrieves the user profile associated with the specified ID. The
+        response includes information about whether the requester has permission to
+        manage the profile.
+      operationId: apiProfileIdGET
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user profile.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: "12345"
+      - name: username
+        in: header
+        description: Username of the requester.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: existing_user
+      responses:
+        "200":
+          description: Successful response with the user profile data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "404":
+          description: Profile not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404_1'
+      x-swagger-router-controller: Profile
+    put:
+      tags:
+      - Profile
+      summary: Update a user profile by ID
+      description: Updates the user profile associated with the specified ID. The
+        requester must have permission to manage the profile.
+      operationId: apiProfileIdPUT
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user profile.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: "12345"
+      - name: username
+        in: header
+        description: Username of the requester.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: existing_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/profile_id_body'
+        required: true
+      responses:
+        "200":
+          description: Profile updated successfully.
+        "403":
+          description: Forbidden. The requester does not have permission to manage
+            the profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_2'
+      x-swagger-router-controller: Profile
+    delete:
+      tags:
+      - Profile
+      summary: Delete a user profile by ID
+      description: Deletes the user profile associated with the specified ID. The
+        requester must have permission to manage the profile.
+      operationId: apiProfileIdDELETE
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user profile.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: "12345"
+      - name: username
+        in: header
+        description: Username of the requester.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: existing_user
+      responses:
+        "200":
+          description: Profile deleted successfully.
+        "403":
+          description: Forbidden. The requester does not have permission to manage
+            the profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_2'
+      x-swagger-router-controller: Profile
+  /api/team/{id}:
+    get:
+      tags:
+      - Team
+      summary: Get a team by ID
+      operationId: apiTeamIdGET
+      parameters:
+      - name: id
+        in: path
+        description: ID of the team
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: username
+        in: header
+        description: Username of the requester
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+        "404":
+          description: Team not found
+      x-swagger-router-controller: Team
+    put:
+      tags:
+      - Team
+      summary: Update a team by ID
+      operationId: apiTeamIdPUT
+      parameters:
+      - name: id
+        in: path
+        description: ID of the team
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: username
+        in: header
+        description: Username of the requester
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        "200":
+          description: Team updated successfully
+        "403":
+          description: Forbidden
+      x-swagger-router-controller: Team
+    delete:
+      tags:
+      - Team
+      summary: Delete a team by ID
+      operationId: apiTeamIdDELETE
+      parameters:
+      - name: id
+        in: path
+        description: ID of the team
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: username
+        in: header
+        description: Username of the requester
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Team deleted successfully
+        "403":
+          description: Forbidden
+      x-swagger-router-controller: Team
+  /api/department/{id}:
+    get:
+      tags:
+      - Department
+      summary: Get a department by ID
+      operationId: apiDepartmentIdGET
+      parameters:
+      - name: id
+        in: path
+        description: ID of the department
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: username
+        in: header
+        description: Username of the requester
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                x-content-type: application/json
+        "404":
+          description: Department not found
+      x-swagger-router-controller: Department
+    put:
+      tags:
+      - Department
+      summary: Update a department by ID
+      operationId: apiDepartmentIdPUT
+      parameters:
+      - name: id
+        in: path
+        description: ID of the department
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: username
+        in: header
+        description: Username of the requester
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        "200":
+          description: Department updated successfully
+        "403":
+          description: Forbidden
+      x-swagger-router-controller: Department
+    delete:
+      tags:
+      - Department
+      summary: Delete a department by ID
+      operationId: apiDepartmentIdDELETE
+      parameters:
+      - name: id
+        in: path
+        description: ID of the department
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: username
+        in: header
+        description: Username of the requester
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Department deleted successfully
+        "403":
+          description: Forbidden
+      x-swagger-router-controller: Department
+  /api/graph:
+    get:
+      tags:
+      - Graph
+      summary: Retrieve a recursive graph of connections
+      operationId: apiGraphGET
+      parameters:
+      - name: user
+        in: query
+        description: The username to start the graph from
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: team
+        in: query
+        description: The team ID to start the graph from
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: department
+        in: query
+        description: The department ID to start the graph from
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response with the graph data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                x-content-type: application/json
+        "400":
+          description: "Bad Request - Invalid user, team, or department"
+        "404":
+          description: Not Found - No starting point found
+      x-swagger-router-controller: Graph
+    post:
+      tags:
+      - Graph
+      summary: Set the starting point for the graph
+      operationId: apiGraphPOST
+      parameters:
+      - name: username
+        in: header
+        description: Username of the requester
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api_graph_body'
+        required: true
+      responses:
+        "200":
+          description: Starting point set successfully
+        "400":
+          description: Bad Request - Invalid start parameter
+        "403":
+          description: Forbidden - Not enough privileges
+        "404":
+          description: Not Found - Start point does not exist
+      x-swagger-router-controller: Graph
+  /api/mrp:
+    get:
+      tags:
+      - MRP
+      summary: Respond with a playful message
+      operationId: apiMrpGET
+      responses:
+        "418":
+          description: I'm a teapot - playful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: meow meow meow meow
+                x-content-type: text/plain
+      x-swagger-router-controller: MRP
+components:
+  schemas:
+    inline_response_400:
+      type: object
+      properties:
+        error:
+          type: string
+          example: username is used
+    inline_response_200:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      example:
+        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+    inline_response_400_1:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid username or password.
+    inline_response_404:
+      type: object
+      properties:
+        error:
+          type: string
+          example: User not found.
+    inline_response_401:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid token.
+    inline_response_400_2:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Token is missing or invalid.
+    inline_response_401_1:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Unauthorized access.
+    api_connect_body:
+      type: object
+      properties:
+        users:
+          type: object
+          additionalProperties:
+            type: string
+          description: A mapping of user IDs to their roles or connection types.
+        teams:
+          type: object
+          additionalProperties:
+            type: string
+          description: A mapping of team IDs to their roles or connection types.
+        departments:
+          type: object
+          additionalProperties:
+            type: string
+          description: A mapping of department IDs to their roles or connection types.
+    inline_response_200_1:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Connections established successfully.
+      example:
+        message: Connections established successfully.
+    inline_response_400_3:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid request body or too many connections.
+    inline_response_403:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Insufficient privileges to connect specified entities.
+    api_disconnect_body:
+      type: object
+      properties:
+        users:
+          type: array
+          description: An array of user IDs to disconnect. The total number of users
+            specified must be part of the disconnection logic.
+          items:
+            type: string
+        teams:
+          type: array
+          description: An array of team IDs to disconnect. The total number of teams
+            specified must be part of the disconnection logic.
+          items:
+            type: string
+        departments:
+          type: array
+          description: An array of department IDs to disconnect. The total number
+            of departments specified must be part of the disconnection logic.
+          items:
+            type: string
+    inline_response_200_2:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Disconnections established successfully.
+      example:
+        message: Disconnections established successfully.
+    inline_response_400_4:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid request body or incorrect number of connections.
+    inline_response_403_1:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Insufficient privileges to disconnect specified entities.
+    inline_response_200_3:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "12345"
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john.doe@example.com
+        allowedToManage:
+          type: boolean
+          example: true
+      example:
+        allowedToManage: true
+        name: John Doe
+        id: "12345"
+        email: john.doe@example.com
+    inline_response_404_1:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Profile not found.
+    profile_id_body:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john.doe@example.com
+    inline_response_403_2:
+      type: object
+      properties:
+        error:
+          type: string
+          example: cannot manage profile.
+    api_graph_body:
+      type: object
+      properties:
+        start:
+          type: string

@@ -1,0 +1,127 @@
+.hero-section2 {
+    box-sizing: border-box;
+    min-width: 1920px;
+    background: white;
+}
+.main-content-container {
+    box-sizing: border-box;
+    width: 100%;
+    background: #f6f6f6;
+}
+.team-profile-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    background: url("assets/image_5af09b12.png") 50% / cover no-repeat;
+    border: none;
+}
+.hero-section1 {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 2.5px;
+    background: white;
+    box-shadow: 0px 5px 21px 7px rgba(0, 0, 0, 0.2);
+}
+.header-nav-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 1542px;
+    height: 100px;
+}
+.logo-image {
+    box-sizing: border-box;
+    display: block;
+    width: 161px;
+    max-width: initial;
+    height: 57px;
+    border: none;
+    object-fit: cover;
+}
+.header-nav-container1 {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.about-section-title {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    font: 500 24px Inter, sans-serif;
+    color: #1e1e1e;
+}
+.about-us-login-button-text {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    margin-left: 35px;
+    font: 500 24px Inter, sans-serif;
+    color: #1e1e1e;
+}
+.hero-section {
+    flex: 0 0 auto;
+    margin-top: -12px;
+}
+.horizontal-spacer {
+    padding-right: 48px;
+    padding-left: 960px;
+}
+.image-container {
+    box-sizing: border-box;
+    display: block;
+    width: 748px;
+    max-width: initial;
+    height: 912px;
+    border: none;
+    object-fit: cover;
+}
+.team-info-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 92px 48px 498px 258px;
+    margin-top: -900px;
+}
+.content-block {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    max-width: 560px;
+    padding: 0;
+    padding-top: 139px;
+    margin: 0;
+    color: #1e1e1e;
+    text-align: left;
+}
+.header-title {
+    font: 700 32px Arial;
+    text-align: left;
+}
+.main-text-block {
+    font: 400 32px Arial;
+    text-align: left;
+}
+.hero-title {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    padding: 0;
+    padding-bottom: 351px;
+    margin: 0;
+    font: 700 54px Arial;
+    color: #1e1e1e;
+}

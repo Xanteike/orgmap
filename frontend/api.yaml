@@ -1,0 +1,462 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  version: 1.0.0
+  description: API documentation for authentication-related endpoints.
+servers:
+  - url: http://localhost:3000
+paths:
+  /auth/signup:
+    post:
+      summary: Sign up a new user
+      description: Creates a new user account with a username and password.
+      parameters:
+        - name: username
+          in: header
+          required: true
+          description: The username for the new account.
+          schema:
+            type: string
+        - name: password
+          in: header
+          required: true
+          description: The password for the new account.
+          schema:
+            type: string
+      responses:
+        '202':
+          description: User created successfully
+        '400':
+          description: Bad request (e.g., username or password is missing or invalid)
+  /auth/login:
+    post:
+      summary: Log in a user
+      description: Authenticates a user and returns a JWT token.
+      parameters:
+        - name: username
+          in: header
+          required: true
+          description: The username for login.
+          schema:
+            type: string
+        - name: password
+          in: header
+          required: true
+          description: The password for login.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User logged in successfully, returns a JWT token.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request (e.g., wrong password)
+        '404':
+          description: User not found
+  /auth/refresh:
+    post:
+      summary: Refresh user token
+      description: Refreshes the JWT token using the provided token.
+      parameters:
+        - name: auth
+          in: header
+          required: true
+          description: The JWT token to refresh.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Token refreshed successfully, returns a new JWT token.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request (e.g., token is missing or invalid)
+        '401':
+          description: Unauthorized (e.g., token is invalid)
+  /auth/check:
+    post:
+      summary: Check user authentication
+      description: Validates the provided JWT token.
+      parameters:
+        - name: auth
+          in: header
+          required: true
+          description: The JWT token to validate.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User is authenticated
+        '401':
+          description: Unauthorized (e.g., token is invalid)
+  /auth/{any}:
+    parameters:
+      - name: any
+        in: path
+        required: true
+        description: Any additional authentication-related endpoint
+        schema:
+          type: string
+    get:
+      summary: Handle any other authentication-related requests
+      responses:
+        '200':
+          description: Request processed successfully
+        '404':
+          description: Not found
+          openapi: 3.0.0
+  /api/id:
+    get:
+      summary: Get the username
+      description: Returns the username from the request headers.
+      parameters:
+        - name: auth
+          in: header
+          required: true
+          description: The JWT token for authentication.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the username.
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized (e.g., token is missing or invalid)
+  /api/connect:
+    post:
+      summary: Connect users, teams, or departments
+      description: Connects users, teams, or departments based on the provided roles.
+      parameters:
+        - name: auth
+          in: header
+          required: true
+          description: The JWT token for authentication.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: object
+                  additionalProperties:
+                    type: string
+                teams:
+                  type: object
+                  additionalProperties:
+                    type: string
+                departments:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        '200':
+          description: Successfully connected the specified users, teams, or departments.
+        '400':
+          description: Bad request (e.g., incorrect number of connections or roles).
+        '403':
+          description: Forbidden (e.g., not enough privileges or cannot manage profile).
+  /api/disconnect:
+    post:
+      summary: Disconnect users, teams, or departments
+      description: Disconnects users, teams, or departments based on the provided roles.
+      parameters:
+        - name: auth
+          in: header
+          required: true
+          description: The JWT token for authentication.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  items:
+                    type: string
+                teams:
+                  type: array
+                  items:
+                    type: string
+                departments:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Successfully disconnected the specified users, teams, or departments.
+        '400':
+          description: Bad request (e.g., incorrect number of connections).
+        '403':
+          description: Forbidden (e.g., not enough privileges).
+  /api/profile:
+    all:
+      summary: Handle profile requests
+      parameters:
+        - name: auth
+          in: header
+          required: true
+          description: Authentication token
+          schema:
+            type: string
+        - name: username
+          in: header
+          required: true
+          description: Username of the requester
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+        '403':
+          description: Forbidden
+        '400':
+          description: Bad Request
+  /api/profile/{id}:
+    get:
+      summary: Get a user profile by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user profile
+          schema:
+            type: string
+        - name: username
+          in: header
+          required: true
+          description: Username of the requester
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Profile not found
+    put:
+      summary: Update a user profile by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user profile
+          schema:
+            type: string
+        - name: username
+          in: header
+          required: true
+          description: Username of the requester
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Profile updated successfully
+        '403':
+          description: Forbidden
+    delete:
+      summary: Delete a user profile by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user profile
+          schema:
+            type: string
+        - name: username
+          in: header
+          required: true
+          description: Username of the requester
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Profile deleted successfully
+        '403':
+          description: Forbidden
+  /api/team:
+    post:
+      summary: Create a new team
+      parameters:
+        - name: username
+          in: header
+          required: true
+          description: Username of the requester
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Team created successfully
+          content:
+            application/json:
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+        '400':
+          description: Bad Request
+  /api/team/{id}:
+    get:
+      summary: Get a team by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the team
+          schema:
+            type: string
+        - name: username
+          in: header
+          required: true
+          description: Username of the requester
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Team not found
+    put:
+      summary: Update a team by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the team
+          schema:
+            type: string
+        - name: username
+          in: header
+          required: true
+          description: Username of the requester
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Team updated successfully
+        '403':
+          description: Forbidden
+    delete:
+      summary: Delete a team by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the team
+          schema:
+            type: string
+        - name: username
+          in: header
+          required: true
+          description: Username
+  /api/graph:
+    get:
+      summary: Retrieve graph data
+      parameters:
+        - name: user
+          in: query
+          required: false
+          description: User ID to start the graph from.
+          schema:
+            type: string
+        - name: team
+          in: query
+          required: false
+          description: Team ID to start the graph from.
+          schema:
+            type: string
+        - name: department
+          in: query
+          required: false
+          description: Department ID to start the graph from.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with graph data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '400':
+          description: Bad request, invalid user/team/department.
+        '404':
+          description: Not found, if the starting point does not exist.
+    post:
+      summary: Set the starting point for the graph
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start:
+                  type: string
+                  description: The starting point for the graph.
+      responses:
+        '200':
+          description: Successfully set the starting point.
+        '400':
+          description: Bad request, invalid start parameter.
+        '403':
+          description: Forbidden, user does not have enough privileges.
+        '404':
+          description: Not found, if the starting point does not exist.
+  /api/mrp:
+    get:
+      summary: A playful endpoint
+      responses:
+        '418':
+          description: I'm a teapot response.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "meow meow meow meow"
