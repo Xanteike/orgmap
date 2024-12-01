@@ -1,3 +1,10 @@
+# Sakura Overflow
+
+1. Владмимир Климов - Backend
+2. Денис Кузьмин - Frontend
+3. Дмитрий Полуэктов - UX/UI Design
+4. Руслан Курбанов - Team Lead, Architect, DevOps
+
 # ORGMAP
 
 ## Общее описание
